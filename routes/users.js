@@ -23,9 +23,34 @@ router.post(
   })
 );
 
+// frontend js
+
+// const form = document.getElementById('some-form')
+
+// form.addEventListener('submit', (e) => {
+//   // do some things
+//   const res = await fetch('/users', {
+//     method: 'POST',
+//     body: JSON.stringify(body)
+//   })
+//   const data = await res.json()
+//   localStorage.setItem('auth-token', data.token)
+// })
+
+// const res = await fetch('/users/currentUser', {
+//   method: 'POST',
+//   headers: {
+//     'Authorization': `Bearer ${localStorage.getItem('auth-token')}`
+//   }
+// })
+
 // create a protected route
-router.get('/currentUser', requireAuth, asyncHandler(async (req, res) => {
-  // res.json({currentUser: })
-}))
+router.get(
+  '/currentUser',
+  requireAuth,
+  asyncHandler(async (req, res) => {
+    res.json({ currentUser: res.locals.user });
+  })
+);
 
 module.exports = router;

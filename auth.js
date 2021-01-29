@@ -21,6 +21,15 @@ function requireAuth(req, res, next) {
     return next(err);
   }
   // attempt to verify the token (jwt.verify)
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      const err = new Error('Unauthorized');
+      err.status = 401;
+      return next(err);
+    }
+    res.locals.user = decoded;
+    next();
+  });
 }
 
 module.exports = { requireAuth, generateUserToken };
